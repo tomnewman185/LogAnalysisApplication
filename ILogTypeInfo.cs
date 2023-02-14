@@ -8,6 +8,7 @@ namespace LogAnalysisTool
 {
     internal interface ILogTypeInfo
     {
-
+        string Name { get; }
+        string RegularExpression { get; }
     }
 }

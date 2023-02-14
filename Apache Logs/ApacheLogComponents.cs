@@ -9,6 +9,6 @@ namespace LogAnalysisTool.Apache_Logs
 {
     internal class ApacheLogComponents : ILogTypeInfo
     {
-    
+
     }
 }
