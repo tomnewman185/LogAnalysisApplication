@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool
 {
-    //Interface for a log type
-    internal interface ILogTypeInfo
+    //Interface for a detection test
+    internal interface IDetectionTest
     {
         string Name { get; }
-        string RegularExpression { get; }
 
-        IEnumerable<IBehaviouralDetectionTest>GetBehaviouralDetectionTests();
+        string Description { get; }
     }
 }
