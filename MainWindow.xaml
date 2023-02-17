@@ -161,7 +161,7 @@
             </Grid>
 
             <!--Vulnerability List ListView-->
-            <ListView x:Name="Issues"
+            <ListView x:Name="Vulnerabilities"
                   Grid.Row="2"
                   ItemsSource="{Binding Vulnerabilities}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -169,9 +169,9 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="100" Header="Line Number" DisplayMemberBinding="{Binding LineNumber}"/>
-                        <GridViewColumn Width="100" Header="Test Name" DisplayMemberBinding="{Binding TestDetected.Name}"/>
-                        <GridViewColumn Width="100" Header="Place Holder"/>
-                        <GridViewColumn Width="100" Header="Place Holder"/>
+                        <GridViewColumn Width="250" Header="Test Name" DisplayMemberBinding="{Binding TestDetected.Name}"/>
+                        <GridViewColumn Width="250" Header="Test Description" DisplayMemberBinding="{Binding TestDetected.Description}"/>
+                        <GridViewColumn Width="500" Header="Log Entry" DisplayMemberBinding="{Binding LogEntry}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
