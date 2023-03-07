@@ -66,6 +66,11 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
             {
                 yield return new HTMLKeywordDetectionTest(htmlKeyword);
             }
+
+            foreach (string sqlKeyword in GetSQLKeywords())
+            {
+                yield return new SQLInjectionKeywordDetectionTest(sqlKeyword);
+            }
         }
 
     }

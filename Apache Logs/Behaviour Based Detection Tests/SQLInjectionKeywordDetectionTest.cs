@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
 {
-    internal class HTMLKeywordDetectionTest : BehaviouralDetectionTestBase
+    internal class SQLInjectionKeywordDetectionTest : BehaviouralDetectionTestBase
     {
-        public HTMLKeywordDetectionTest(string htmlKeyword)
+        public SQLInjectionKeywordDetectionTest(string sqlKeywords) 
         {
-            HTMLKeyword = htmlKeyword;
-            SetRegexPattern(BuildRegexPattern(HTMLKeyword));
+            SQLKeywords = sqlKeywords;
+            SetRegexPattern(BuildRegexPattern(sqlKeywords));
         }
 
         //Builds the regex pattern for the keyword currently being passed in from the list contained within the factory class
-        private static string BuildRegexPattern(string htmlKeyword)
+        private static string BuildRegexPattern(string sqlKeywords)
         {
             string regexPattern = string.Empty;
-            var chars = ($"<{htmlKeyword}").ToCharArray();
-            
+            var chars = ($"<{sqlKeywords}").ToCharArray();
+
             foreach (char c in chars)
             {
                 regexPattern += $"({Uri.HexEscape(c)}|{c})";
@@ -50,9 +51,9 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
             }
         }
 
-        public string HTMLKeyword { get; set; }
+        string SQLKeywords { get; set; }
         private Regex regexStatement { get; set; }
-        public override string Description => $"Check For <{HTMLKeyword} Element";
-        public override string Name => $"<{HTMLKeyword} Test";
+        public override string Description => $"Check For <{SQLKeywords} Element";
+        public override string Name => $"{SQLKeywords} Test";
     }
 }
