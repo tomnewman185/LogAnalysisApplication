@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool
 {
-    //Base class for a behaviorual detection test which has the properties contained from the behaviorual detection test interface
+    //Base class for a behavioural detection test which has the properties contained from the behaviorual detection test interface
     internal abstract class BehaviouralDetectionTestBase : IBehaviouralDetectionTest
     {
         public abstract IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineCounter);

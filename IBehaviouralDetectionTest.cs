@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool
 {
-    //Interface for a behavioural-based detection test, which inherits from the detection test interface
+    //Interface for a behavioural-based detection test, which inherits from the test interface
     internal interface IBehaviouralDetectionTest : ITest
     {
         IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineCounter);

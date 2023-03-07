@@ -15,6 +15,7 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
             SetRegexPattern(BuildRegexPattern(HTMLKeyword));
         }
 
+        //Builds the regex pattern for the keyword currently being passed in from the list contained within the factory class
         private static string BuildRegexPattern(string htmlKeyword)
         {
             string regexPattern = string.Empty;
@@ -28,11 +29,13 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
             return regexPattern;
         }
 
+        //Sets the regex pattern for the current keyword
         private void SetRegexPattern(string regexPattern)
         {
             regexStatement = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
+        //Conducts the test for the keyword on each line of the log file, returning a new malicious log file object if a detection is found
         public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             var group = match.Groups[ApacheLogComponents.RegexComponentGroups.Request];

@@ -10,6 +10,7 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
     //Class to create the different types of behavioural detection tests
     internal class BehaviouralDetectionTestFactory
     {
+        //List of HTML based keywords which need to be checked against each log entry 
         public static string[] GetHTMLKeywords()
         {
             string[] htmlKeywords =
@@ -40,6 +41,7 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
             return htmlKeywords;
         }
 
+        //List of SQL keywords that need to be checked against each log entry
         public static string[] GetSQLKeywords()
         {
             string[] sqlKeywords =
@@ -59,26 +61,12 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
 
         public static IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests()
         {
+            //HTML keyword test, running the test for each keyword contained within GetHTMLKeywords()
             foreach (string htmlKeyword in GetHTMLKeywords())
             {
                 yield return new HTMLKeywordDetectionTest(htmlKeyword);
             }
         }
-
-
-        //public static IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests()
-        //{
-            //yield return _scriptElementTest ??= new ScriptTagDetectionTest();
-            //yield return _imgElementTest ??= new ImageTagDetectionTest();
-            //yield return _jsElementTest ??= new JavaScriptElementTest();
-            //yield return _HTMLElementTest ??= new HTMLTagDetectionTest();
-        //}
-
-        //private static ScriptTagDetectionTest _scriptElementTest;
-        //private static ImageTagDetectionTest _imgElementTest;
-        //private static JavaScriptElementTest _jsElementTest;
-        //private static HTMLTagDetectionTest _HTMLElementTest;
-
 
     }
 }

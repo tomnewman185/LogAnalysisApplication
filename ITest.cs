@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool
 {
+    //Interface for a test
     public interface ITest
     {
         string Description { get; }

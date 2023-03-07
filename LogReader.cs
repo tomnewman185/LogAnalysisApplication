@@ -31,16 +31,16 @@ namespace LogAnalysisTool
 
                     lineCounter++;
 
-                    //For each match of a behavioural detection test, we return a result
+                    //For each match of a behavioural detection test, we create a new detection if malicious log has been detected
                     foreach(Match match in regex.Matches(line))
                     {
                         foreach(IBehaviouralDetectionTest behaviouralDetectionTest in logTypeInfo.GetBehaviouralDetectionTests())
                         {
-                            var issues = behaviouralDetectionTest.ConductTest(match, line, lineCounter);
+                            var detections = behaviouralDetectionTest.ConductTest(match, line, lineCounter);
 
-                            foreach (var issue in issues)
+                            foreach (var detection in detections)
                             {
-                                yield return issue;
+                                yield return detection;
                             }
                         }
                     }
