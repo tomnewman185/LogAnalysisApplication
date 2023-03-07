@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Anomaly Based Detection Tests\" />
+    <Folder Include="Statistic Reporting\" />
   </ItemGroup>
 
 </Project>

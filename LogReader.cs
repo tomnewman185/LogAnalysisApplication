@@ -36,11 +36,11 @@ namespace LogAnalysisTool
                     {
                         foreach(IBehaviouralDetectionTest behaviouralDetectionTest in logTypeInfo.GetBehaviouralDetectionTests())
                         {
-                            var result = behaviouralDetectionTest.ConductTest(match, line, lineCounter);
+                            var issues = behaviouralDetectionTest.ConductTest(match, line, lineCounter);
 
-                            if (result != null)
+                            foreach (var issue in issues)
                             {
-                                yield return result;
+                                yield return issue;
                             }
                         }
                     }

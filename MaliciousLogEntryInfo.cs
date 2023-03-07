@@ -16,9 +16,9 @@ namespace LogAnalysisTool
         public int IndexWithinGroup { get; }
         public int LineNumber { get; }
         public int LengthOfDetection { get; }
-        public IDetectionTest TestDetected { get; }
+        public ITest TestDetected { get; }
 
-        public MaliciousLogEntryInfo(string logEntry, Match match, Group group, int indexWithinGroup, int lineNumber, int lengthOfDetection, IDetectionTest testDetected) 
+        public MaliciousLogEntryInfo(string logEntry, Match match, Group group, int indexWithinGroup, int lineNumber, int lengthOfDetection, ITest testDetected) 
         {
             LogEntry = logEntry;
             Match = match;
