@@ -81,6 +81,7 @@ namespace LogAnalysisTool
             foreach (var issue in LogAnalysisTool.LogReader.Read(FileName, LogType))
             {
                 Vulnerabilities.Add(issue);
+
             }
         }
     }

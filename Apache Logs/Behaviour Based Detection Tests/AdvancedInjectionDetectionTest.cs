@@ -23,7 +23,7 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
             {
                 if (m.Success)
                 {
-                    yield return new MaliciousLogEntryInfo(line, match, group, m.Index, m.Length, lineNumber, this);
+                    yield return new MaliciousLogEntryInfo(line, match, group, m.Index, lineNumber, m.Length, this);
                 }
             }
         }

@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
 {
-    internal class InsecureDirectObjectReferenceDetectionTest : BehaviouralDetectionTestBase
+    class MaliciousFileExecutionDetectionTest : BehaviouralDetectionTestBase
     {
-        public InsecureDirectObjectReferenceDetectionTest() 
+        public MaliciousFileExecutionDetectionTest() 
         {
-            Regex = new Regex(@"(\.|(%|%25)2E)(\.|(%|%25)2E)(\/|(%|%25)2F|\\|(%|%25)5C)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            Regex = new Regex(@"(https?|ftp|php|data):");
         }
-        
+
         public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             var group = match.Groups[ApacheLogComponents.RegexComponentGroups.Request];
@@ -28,8 +28,10 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
                 }
             }
         }
+
         private Regex Regex { get; set; }
-        public override string Description => $"Check For Path Traversal Attack";
-        public override string Name => $"Test For Path Traversal Attack";
+        public override string Description => "Malicious File Execution Test";
+        public override string Name => "Malicious File Execution Test";
+
     }
 }

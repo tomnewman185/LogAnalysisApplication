@@ -114,6 +114,8 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
             yield return new InsecureDirectObjectReferenceDetectionTest();
 
             yield return new AdvancedInjectionDetectionTest();
+
+            yield return new MaliciousFileExecutionDetectionTest();
         }
 
     }
