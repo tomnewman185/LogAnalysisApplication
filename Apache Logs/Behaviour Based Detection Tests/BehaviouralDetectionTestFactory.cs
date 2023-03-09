@@ -110,6 +110,10 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
             {
                 yield return new JSEventHandlerDetectionTest(jsEventHandlerKeyword);
             }
+
+            yield return new InsecureDirectObjectReferenceDetectionTest();
+
+            yield return new AdvancedInjectionDetectionTest();
         }
 
     }

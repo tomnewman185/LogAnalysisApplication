@@ -174,7 +174,7 @@
 
                     <!--Vulnerability Count TextBlock-->
                     <TextBlock Grid.Row="1" Margin="10" FontFamily="Lato" Foreground="White">
-                    <Run>Vulnerabilities Found In Current Cycle: </Run>
+                    <Run>Potential Vulnerabilities Found In Current Cycle: </Run>
                     <Run Text="{Binding Vulnerabilities.Count, Mode=OneWay}"/>
                     </TextBlock>
                 </Grid>
@@ -192,7 +192,20 @@
                   Grid.Row="3"
                   ItemsSource="{Binding Vulnerabilities}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          FontFamily="Lato"
+                          FontSize="12"
+                          FontWeight="Thin"
+                          BorderThickness="5"
+                          BorderBrush="#b19cd9"
+                          Margin="5">
+                    
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Height" Value="25" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="75" Header="Line Number" DisplayMemberBinding="{Binding LineNumber}"/>
