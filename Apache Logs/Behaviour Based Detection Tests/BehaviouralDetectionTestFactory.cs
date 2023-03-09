@@ -46,7 +46,7 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
         {
             string[] sqlKeywords =
             {
-                "or",
+                //"or",
                 "select",
                 "union",
                 "insert",
@@ -59,6 +59,38 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
             return sqlKeywords;
         }
 
+        public static string[] GetJSEventHandlerKeywords()
+        {
+            string[] JSEventHandlerKeywords =
+            {
+                "onAbort",
+                "onBlur",
+                "onChange",
+                "onClick",
+                "onDblClick",
+                "onDragDrop",
+                "onError",
+                "onFocus",
+                "onKeyDown",
+                "onKeyPress",
+                "onKeyUp",
+                "onLoad",
+                "onMouseDown",
+                "onMouseMove",
+                "onMouseOut",
+                "onMouseOver",
+                "onMouseUp",
+                "onMove",
+                "onReset",
+                "onResize",
+                "onSelect",
+                "onSubmit",
+                "onUnload"
+            };
+
+            return JSEventHandlerKeywords;
+        }
+
         public static IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests()
         {
             //HTML keyword test, running the test for each keyword contained within GetHTMLKeywords()
@@ -67,9 +99,16 @@ namespace LogAnalysisTool.Behaviour_Based_Detection_Tests
                 yield return new HTMLKeywordDetectionTest(htmlKeyword);
             }
 
+            //SQL keyword test, running the test for each keyword contained within GetSQLKeywords()
             foreach (string sqlKeyword in GetSQLKeywords())
             {
                 yield return new SQLInjectionKeywordDetectionTest(sqlKeyword);
+            }
+
+            //JS event handler keyword test, running the test for each keyword contained within GetJSEventHandlerKeywords()
+            foreach (string jsEventHandlerKeyword in GetJSEventHandlerKeywords())
+            {
+                yield return new JSEventHandlerDetectionTest(jsEventHandlerKeyword);
             }
         }
 

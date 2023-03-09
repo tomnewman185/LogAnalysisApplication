@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
 {
-    internal class SQLInjectionKeywordDetectionTest : BehaviouralDetectionTestBase
+    internal class JSEventHandlerDetectionTest : BehaviouralDetectionTestBase
     {
-        public SQLInjectionKeywordDetectionTest(string sqlKeywords) 
+        public JSEventHandlerDetectionTest(string jsEventHandlerKeyword) 
         {
-            SQLKeywords = sqlKeywords;
-            SetRegexPattern(BuildRegexPattern(sqlKeywords));
+            JSEventHandlerKeyword = jsEventHandlerKeyword;
+            SetRegexPattern(BuildRegexPattern(JSEventHandlerKeyword));
         }
 
         //Builds the regex pattern for the keyword currently being passed in from the list contained within the factory class
-        private static string BuildRegexPattern(string sqlKeywords)
+        private static string BuildRegexPattern(string jsEventHandlerKeyword)
         {
             string regexPattern = string.Empty;
-            var chars = ($"{sqlKeywords}").ToCharArray();
+            var chars = ($"{jsEventHandlerKeyword}").ToCharArray();
 
             foreach (char c in chars)
             {
@@ -51,9 +50,10 @@ namespace LogAnalysisTool.Apache_Logs.Behaviour_Based_Detection_Tests
             }
         }
 
-        string SQLKeywords { get; set; }
+        public string JSEventHandlerKeyword { get; set; }
         private Regex regexStatement { get; set; }
-        public override string Description => $"Check For <{SQLKeywords} Element";
-        public override string Name => $"{SQLKeywords} Test";
+        public override string Description => $"Check For <{JSEventHandlerKeyword} JS Event Handler Element";
+        public override string Name => $"<{JSEventHandlerKeyword} Test";
     }
 }
+
