@@ -20,11 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpressMvvm" Version="22.1.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Anomaly Based Detection Tests\" />
-    <Folder Include="Statistic Reporting\" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

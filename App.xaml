@@ -5,13 +5,26 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Window Style -->
+            <Style x:Key="windowSyle" TargetType="{x:Type Window}">
+                <Setter Property="FontFamily" Value="Lato" />
+            </Style>
+            <!-- MenuItem Style -->
+            <Style TargetType="{x:Type MenuItem}">
+                <Setter Property="FontFamily" Value="Lato" />
+            </Style>
+
+
+            <!-- App Colour Definitions -->
+            <SolidColorBrush x:Key="appBackgroundColour" Color="#b19cd9" />
+
+            <SolidColorBrush x:Key="appForegroundColour" Color="White" />
+
+            <!-- Resource Dictionary Definitions -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/TextBoxTheme.xaml"/>
-                <ResourceDictionary Source="Themes/ButtonTheme.xaml"/>
-                <ResourceDictionary Source="Themes/ComboBoxTheme.xaml"/>
-            </ResourceDictionary.MergedDictionaries>    
+                <ResourceDictionary Source="Themes/TextBoxTheme.xaml" />
+                <ResourceDictionary Source="Themes/ButtonTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
-        
     </Application.Resources>
 </Application>

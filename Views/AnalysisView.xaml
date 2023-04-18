@@ -1,0 +1,552 @@
+﻿<UserControl x:Class="LogAnalysisTool.Views.AnalysisView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:LogAnalysisTool.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:local="clr-namespace:LogAnalysisTool.Views"
+             xmlns:loganalysistool="clr-namespace:LogAnalysisTool"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:progressdialogservice="clr-namespace:LogAnalysisTool.Services.ProgressDialogService"
+             mc:Ignorable="d"
+             d:Background="{StaticResource appForegroundColour}"
+             d:DesignHeight="1050"
+             d:DesignWidth="1500">
+
+    <dxmvvm:Interaction.Behaviors>
+        <!-- OpenFileDialogService Behavior -->
+        <dxmvvm:OpenFileDialogService />
+        <progressdialogservice:ProgressDialogService />
+        <dxmvvm:DispatcherService />
+        <dxmvvm:MessageBoxService />
+    </dxmvvm:Interaction.Behaviors>
+
+    <!-- Main Application Grid Definition -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0"
+                   Margin="10"
+                   FontSize="25"
+                   FontWeight="Thin"
+                   Text="Log Analysis" />
+
+        <!-- Main Controls GroupBox -->
+        <GroupBox Grid.Row="1"
+                  Margin="10"
+                  Background="{StaticResource appBackgroundColour}"
+                  BorderThickness="0">
+
+            <!-- Main Controls StackPanel -->
+            <StackPanel>
+                <!-- TextBox & Controls Grid Definition -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="600" />
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="130" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- FileName TextBox -->
+                    <TextBox x:Name="fileName"
+                             Grid.Column="0"
+                             Style="{StaticResource TextBox}"
+                             Text="{Binding FileName}" />
+
+                    <!-- Browse File Button -->
+                    <Button Grid.Column="1"
+                            Margin="10"
+                            Command="{Binding BrowseCommand}"
+                            Content="Browse Files"
+                            Style ="{StaticResource Button}" />
+
+
+                    <!-- Log Type Selection ComboBox -->
+                    <ComboBox x:Name="logType"
+                              Grid.Column="2"
+                              Margin="10"
+                              SelectedItem="{Binding LogType,Mode=OneWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EnumItemsSourceBehavior EnumType="{x:Type loganalysistool:LogType}" />
+                        </dxmvvm:Interaction.Behaviors>
+                    </ComboBox>
+
+
+
+                    <!-- Run Button -->
+                    <Button Grid.Column="3"
+                            Margin="10"
+                            Command="{Binding RunAnalysisCommand}"
+                            Content="Run"
+                            Style="{StaticResource Button}">
+                        <Button.Resources>
+                            <converters:RunEnabledConverter x:Key="runEnabledConverter" />
+                        </Button.Resources>
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource runEnabledConverter}">
+                                <Binding ElementName="fileName" Path="Text" />
+                                <Binding ElementName="logType" Path="SelectedItem" />
+                                <Binding Path="RunningAnalysis" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+
+                    <!-- Model Training Button -->
+                    <!-- (REMOVED AFTER MODEL TRAINING WAS COMPLETED) -->
+                    <!-- <Button Grid.Column="0"
+                            Width="100"
+                            Height="25"
+                            Command="{Binding TrainingCommand}"
+                            >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="10,0,0,0">Training</TextBlock>
+                            </StackPanel>
+                        </Button> -->
+
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Current File Information GroupBox -->
+        <GroupBox Grid.Row="2"
+                  Margin="10"
+                  Background="{StaticResource appBackgroundColour}"
+                  BorderThickness="0">
+
+            <!-- Current File Information Grid Definition -->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Current File Information TextBlock -->
+                <TextBlock Grid.Row="0"
+                           Margin="10"
+                           FontWeight="Light"
+                           Foreground="{StaticResource appForegroundColour}">
+                    <Run>Current File:</Run>
+                    <Run Text="{Binding FileName}" />
+                </TextBlock>
+
+            </Grid>
+        </GroupBox>
+
+        <!-- Analysis Information Tab Control -->
+        <TabControl Grid.Row="3">
+            <!-- Behavioural-Based Detection Tab -->
+            <TabItem FontSize="16"
+                     FontWeight="Light"
+                     Header="{Binding Vulnerabilities.Count}"
+                     HeaderStringFormat="{}Behavioural-Based Detection: {0:N0} item(s) found">
+                <!-- Behavioural-Based Detection Tab Grid Definition -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Behavioural-Based Detection GroupBox -->
+                    <GroupBox Grid.Row="0"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+
+                        <!-- Behavioural-Based Detection Grid Definition -->
+                        <Grid>
+                            <Grid.Resources>
+                                <CollectionViewSource x:Key="vulnerabilitiesViewSource" Source="{Binding Vulnerabilities}">
+                                    <CollectionViewSource.GroupDescriptions>
+                                        <PropertyGroupDescription PropertyName="TestDetected.Name" />
+                                    </CollectionViewSource.GroupDescriptions>
+                                </CollectionViewSource>
+                            </Grid.Resources>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <!-- Title TextBlock -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Behavioural-Based Analysis" />
+                            <!-- Potential Vulnerabilites Count TextBlock -->
+                            <TextBlock Grid.Row="1"
+                                       Margin="10,0,0,0"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}">
+                                <Run>Potential Behavioural-Based Vulnerabilities Found:</Run>
+                                <Run Text="{Binding Vulnerabilities.Count, Mode=OneWay,StringFormat=N0}" />
+                            </TextBlock>
+
+                            <!-- Behavioural-Based Detection ListView -->
+                            <ListView x:Name="Vulnerabilities"
+                                      Grid.Row="2"
+                                      Grid.RowSpan="2"
+                                      Margin="10,0,10,0"
+                                      BorderBrush="{StaticResource appBackgroundColour}"
+                                      BorderThickness="5"
+                                      FontSize="12"
+                                      FontWeight="Thin"
+                                      ItemsSource="{Binding Source={StaticResource vulnerabilitiesViewSource}}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      SelectedItem="{Binding SelectedBehaviouralItem}">
+
+                                <!-- GROUPING -->
+                                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.ContainerStyle>
+                                            <Style TargetType="{x:Type GroupItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Expander IsExpanded="False">
+                                                                <Expander.Header>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <TextBlock VerticalAlignment="Bottom"
+                                                                                   FontSize="16"
+                                                                                   FontWeight="Thin"
+                                                                                   Text="{Binding Name}" />
+                                                                        <TextBlock Margin="10,0,0,0"
+                                                                                   VerticalAlignment="Bottom"
+                                                                                   FontSize="16"
+                                                                                   FontWeight="SemiBold"
+                                                                                   Text="{Binding ItemCount, StringFormat=N0}" />
+                                                                        <TextBlock VerticalAlignment="Bottom"
+                                                                                   FontSize="16"
+                                                                                   FontStyle="Italic"
+                                                                                   Text=" item(s)" />
+                                                                    </StackPanel>
+                                                                </Expander.Header>
+                                                                <ItemsPresenter />
+                                                            </Expander>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </GroupStyle.ContainerStyle>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="25" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="75"
+                                                        DisplayMemberBinding="{Binding LineNumber}"
+                                                        Header="Line Number" />
+                                        <GridViewColumn Width="75"
+                                                        DisplayMemberBinding="{Binding FromTorExitNode}"
+                                                        Header="Tor Exit Node Request" />
+                                        <GridViewColumn Width="150"
+                                                        DisplayMemberBinding="{Binding TestDetected.Name}"
+                                                        Header="Potential Issue Found" />
+                                        <GridViewColumn Width="2000"
+                                                        DisplayMemberBinding="{Binding LogEntry}"
+                                                        Header="Log Entry" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- GridSplitter Definition -->
+                    <GridSplitter Grid.Row="1"
+                                  Height="5"
+                                  HorizontalAlignment="Stretch" />
+
+                    <!-- Details Section GroupBox -->
+                    <GroupBox Grid.Row="2"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+                        <!-- Details Section Grid Definition -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Selected Log Entry Details TextBlocks -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Details" />
+                            <TextBlock Grid.Row="1"
+                                       Margin="10"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="{Binding SelectedBehaviouralItem.TestDetected.Name, StringFormat='Name: {0}'}" />
+                            <TextBlock Grid.Row="2"
+                                       Margin="10"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="{Binding SelectedBehaviouralItem.TestDetected.Description, StringFormat='Description: {0}'}" />
+                            <TextBlock Grid.Row="3"
+                                       Margin="10"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="{Binding SelectedBehaviouralItem.LogEntry, StringFormat='Log Entry: {0}'}" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <!-- Anomaly-Based Detection Tab -->
+            <TabItem FontSize="16"
+                     FontWeight="Light"
+                     Header="{Binding MLVulnerabilities.Count}"
+                     HeaderStringFormat="{}Anomaly Based Detection: {0:N0} item(s) found">
+                <!-- Anomaly-Based Detection Tab Grid Definition -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Anomaly-Based Detection GroupBox -->
+                    <GroupBox Grid.Row="0"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+                        <!-- Anomaly-Based Detection Grid Definition -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!-- Title TextBlock -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Anomaly-Based Analysis" />
+                            <!-- Potential Vulnerabilites Count TextBlock -->
+                            <TextBlock Grid.Row="1"
+                                       Margin="10,0,0,0"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}">
+                                <Run>Potential Anomaly-Based Vulnerabilities Found:</Run>
+                                <Run Text="{Binding MLVulnerabilities.Count, Mode=OneWay ,StringFormat=N0}" />
+                            </TextBlock>
+
+                            <!-- Anomaly-Based Detection ListView -->
+                            <ListView Grid.Row="2"
+                                      Grid.RowSpan="2"
+                                      Margin="10,0,10,0"
+                                      BorderBrush="{StaticResource appBackgroundColour}"
+                                      BorderThickness="5"
+                                      FontSize="12"
+                                      FontWeight="Thin"
+                                      ItemsSource="{Binding MLVulnerabilities}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      SelectedItem="{Binding SelectedAnomalyItem}">
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="25" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn Width="75"
+                                                            DisplayMemberBinding="{Binding LineNumber}"
+                                                            Header="Line Number" />
+                                            <GridViewColumn Width="2000"
+                                                            DisplayMemberBinding="{Binding Request}"
+                                                            Header="Log Entry" />
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- GridSplitter Definition -->
+                    <GridSplitter Grid.Row="1"
+                                  Height="5"
+                                  HorizontalAlignment="Stretch" />
+
+                    <!-- Details GroupBox -->
+                    <GroupBox Grid.Row="2"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+
+                        <!-- Details Section Grid Definition -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Title TextBlock -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Details" />
+                            <!-- Details TextBlock -->
+                            <TextBlock Grid.Row="1"
+                                       Margin="10"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="{Binding SelectedAnomalyItem.Request, StringFormat='Request String: {0}'}" />
+                        </Grid>
+                    </GroupBox>
+
+
+                </Grid>
+            </TabItem>
+
+            <!-- Common Detections Tab -->
+            <TabItem FontSize="16"
+                     FontWeight="Light"
+                     Header="{Binding CommonVulnerabilities.Count}"
+                     HeaderStringFormat="{}Common Detections: {0:N0} item(s) found">
+                <!-- Common Detections Tab Grid Definition -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Common Detections GroupBox -->
+                    <GroupBox Grid.Row="0"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+                        <!-- Common Detections Tab Grid Definition -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <!-- Title TextBlock -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Common Analysis" />
+                            <!-- Common Potential Vulnerabilities Count TextBlock -->
+                            <TextBlock Grid.Row="1"
+                                       Margin="10,0,0,0"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}">
+                                <Run>Potential Common Vulnerabilities Found:</Run>
+                                <Run Text="{Binding CommonVulnerabilities.Count, Mode=OneWay ,StringFormat=N0}" />
+                            </TextBlock>
+                            <!-- Common Vulnerabilites ListView -->
+                            <ListView Grid.Row="2"
+                                      Grid.RowSpan="2"
+                                      Margin="10,0,10,0"
+                                      BorderBrush="{StaticResource appBackgroundColour}"
+                                      BorderThickness="5"
+                                      FontSize="12"
+                                      FontWeight="Thin"
+                                      ItemsSource="{Binding CommonVulnerabilities}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      SelectedItem="{Binding SelectedCommonItem}">
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="25" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn Width="75"
+                                                            DisplayMemberBinding="{Binding LineNumber}"
+                                                            Header="Line Number" />
+                                            <GridViewColumn Width="2000"
+                                                            DisplayMemberBinding="{Binding Request}"
+                                                            Header="Log Entry" />
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- GridSplitter Definition -->
+                    <GridSplitter Grid.Row="1"
+                                  Height="5"
+                                  HorizontalAlignment="Stretch" />
+
+                    <!-- Details GroupBox -->
+                    <GroupBox Grid.Row="2"
+                              Margin="10"
+                              Background="{StaticResource appBackgroundColour}"
+                              BorderThickness="0">
+
+                        <!-- Details Section Grid Definition -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Title TextBlock -->
+                            <TextBlock Grid.Row="0"
+                                       Margin="10"
+                                       FontSize="15"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="Details" />
+                            <!-- Details TextBlock -->
+                            <TextBlock Grid.Row="1"
+                                       Margin="10"
+                                       FontSize="12"
+                                       FontWeight="Light"
+                                       Foreground="{StaticResource appForegroundColour}"
+                                       Text="{Binding SelectedCommonItem.Request, StringFormat='Request String: {0}'}" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

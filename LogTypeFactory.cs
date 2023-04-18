@@ -1,18 +1,26 @@
-﻿using LogAnalysisTool.Apache_Logs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogAnalysisTool.ApacheLogs;
 
 namespace LogAnalysisTool
 {
-    //Class to create the different types of log
+    /// <summary>
+    /// LogTypeFactory - Factory class to create the different types of log
+    /// </summary>
     internal class LogTypeFactory
     {
-        public static ILogTypeInfo GetLogType(LogType logType) 
+        /// <summary>
+        /// GetLogType() - Creates new LogType of the logs that exist if called, else throws exception stating the
+        /// LogType is not supported.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static ILogTypeInfo GetLogType(LogType logType)
         {
-            //Creates new LogType of the logs that exist if called, else throws exception stating the LogType is not supported.
             switch (logType)
             {
                 case LogType.Apache:

@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests;
 
 namespace LogAnalysisTool
 {
-    //Class to define information that we want to collect regarding a malicious log entry
-    internal class MaliciousLogEntryInfo
+    /// <summary>
+    /// MaliciousLogEntryInfo - Class to define information that we want to collect regarding a malicious log entry
+    /// </summary>
+    internal class MaliciousLogEntryInfo : IBehaviouralDetectionItem
     {
-        public string LogEntry { get; }
-        public Match Match { get; }
-        public Group Group { get; }
-        public int IndexWithinGroup { get; }
-        public int LineNumber { get; }
-        public int LengthOfDetection { get; }
-        public ITest TestDetected { get; }
-
-        public MaliciousLogEntryInfo(string logEntry, Match match, Group group, int indexWithinGroup, int lineNumber, int lengthOfDetection, ITest testDetected) 
+        public MaliciousLogEntryInfo(string logEntry,
+                                     Match match,
+                                     Group group,
+                                     int indexWithinGroup,
+                                     int lineNumber,
+                                     int lengthOfDetection,
+                                     ITest testDetected,
+                                     bool fromTorExitNode)
         {
             LogEntry = logEntry;
             Match = match;
@@ -27,6 +26,27 @@ namespace LogAnalysisTool
             LineNumber = lineNumber;
             LengthOfDetection = lengthOfDetection;
             TestDetected = testDetected;
+            FromTorExitNode = fromTorExitNode;
         }
+
+        public bool FromTorExitNode { get; }
+
+        public Group Group { get; }
+
+        public int IndexWithinGroup { get; }
+
+        public int LengthOfDetection { get; }
+
+        public int LineNumber { get; }
+
+        public string LogEntry { get; }
+
+        public Match Match { get; }
+
+        public ITest TestDetected { get; }
+
+        int IDetectionItem.LineNumber => LineNumber;
+
+        string IDetectionItem.Request => Match.Value;
     }
 }
