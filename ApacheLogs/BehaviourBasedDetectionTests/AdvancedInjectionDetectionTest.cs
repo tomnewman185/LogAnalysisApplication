@@ -15,7 +15,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
         }
 
         // Carry out tests to detect signature of an Advanced Injection attack
-        public override IEnumerable<MaliciousLogEntryInfo> ConductTests(Match match, string line, int lineNumber)
+        public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             // Defining the request group, which is the group that needs to be searched for the attack
             var group = match.Groups[ApacheLogComponents.RegexComponentGroups.Request];

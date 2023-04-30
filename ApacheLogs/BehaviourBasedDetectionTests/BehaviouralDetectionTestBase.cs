@@ -27,7 +27,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
         protected HashSet<string> TorExitNodeIPAddresses { get; set; }
 
         #region IBehaviouralDetectionTest Implementation
-        public abstract IEnumerable<MaliciousLogEntryInfo> ConductTests(Match match, string line, int lineCounter);
+        public abstract IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineCounter);
         #endregion
 
         #region ITest Implementation

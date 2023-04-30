@@ -37,18 +37,18 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
         // Sets the regex pattern for the current keyword
         private void SetRegexPattern(string regexPattern)
         {
-            sqlInjectionKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            SqlInjectionKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
         // Carry out tests to detect signature of the current SQL keyword
-        public override IEnumerable<MaliciousLogEntryInfo> ConductTests(Match match, string line, int lineNumber)
+        public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             // Defining the request group, which is the group that needs to be searched for the attack
             var group = match.Groups[ApacheLogComponents.RegexComponentGroups.Request];
             var request = group.Value;
 
             // For each signature detection, return a new malicious log match
-            foreach (Match m in sqlInjectionKeywordRegularExpression.Matches(request))
+            foreach (Match m in SqlInjectionKeywordRegularExpression.Matches(request))
             {
                 if (m.Success)
                 {
@@ -64,7 +64,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             }
         }
 
-        private Regex sqlInjectionKeywordRegularExpression { get; set; }
+        private Regex SqlInjectionKeywordRegularExpression { get; set; }
 
         string SQLKeywords { get; set; }
 

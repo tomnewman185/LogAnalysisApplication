@@ -67,7 +67,7 @@ namespace LogAnalysisTool.ApacheLogs
                 // For each behavioural-based detection test, if there is a detection, return a new detection
                 foreach (IBehaviouralDetectionTest behaviouralTest in behaviouralTests)
                 {
-                    var detections = behaviouralTest.ConductTests(match, line, lineCount);
+                    var detections = behaviouralTest.ConductTest(match, line, lineCount);
 
                     foreach (var detection in detections)
                     {

@@ -11,6 +11,6 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
     /// </summary>
     internal interface IBehaviouralDetectionTest : ITest
     {
-        IEnumerable<MaliciousLogEntryInfo> ConductTests(Match match, string line, int lineCounter);
+        IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineCounter);
     }
 }

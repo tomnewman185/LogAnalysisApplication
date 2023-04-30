@@ -37,18 +37,18 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
         // Sets the regex pattern for the current keyword
         private void SetRegexPattern(string regexPattern)
         {
-            javascriptEventHandlerKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            JavascriptEventHandlerKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
         // Carry out tests to detect signature of the current JavaScript keyword
-        public override IEnumerable<MaliciousLogEntryInfo> ConductTests(Match match, string line, int lineNumber)
+        public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             // Defining the request group, which is the group that needs to be searched for the attack
             var group = match.Groups[ApacheLogComponents.RegexComponentGroups.Request];
             var request = group.Value;
 
             // For each signature detection, return a new malicious log match
-            foreach (Match m in javascriptEventHandlerKeywordRegularExpression.Matches(request))
+            foreach (Match m in JavascriptEventHandlerKeywordRegularExpression.Matches(request))
             {
                 if (m.Success)
                 {
@@ -64,7 +64,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             }
         }
 
-        private Regex javascriptEventHandlerKeywordRegularExpression { get; set; }
+        private Regex JavascriptEventHandlerKeywordRegularExpression { get; set; }
 
         // Attack Description
         public override string Description => "JavaScript Event Handler Injection - A test to detect if a user has injected JavaScript event handler keywords to potentially manipulate the server to run external resources.";
