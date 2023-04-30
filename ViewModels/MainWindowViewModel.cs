@@ -35,6 +35,7 @@ namespace LogAnalysisTool.ViewModels
         {
             StatisticsEnabled = false;
         }
+
         /// <summary>
         /// /// AnalysisResultsAvailable() - method to determine if there are analysis results available, which
         /// determines whether or not the statisitcs tab is available for selection
@@ -52,6 +53,7 @@ namespace LogAnalysisTool.ViewModels
         {
             CurrentViewModel = AnalysisViewModel;
         }
+
         /// <summary>
         /// ShowStatistics() - changes the view model to the statistics view model
         /// </summary>

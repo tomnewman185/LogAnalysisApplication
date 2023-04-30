@@ -1,9 +1,7 @@
-﻿using Microsoft.ML.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests;
@@ -15,24 +13,6 @@ namespace LogAnalysisTool.ApacheLogs
     /// </summary>
     internal class LogReader
     {
-        /// <summary>
-        /// ReadLinesAsync() - method to read in lines from a log file
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public static async IAsyncEnumerable<string> ReadLinesAsync(string fileName)
-        {
-            using (var file = new StreamReader(fileName))
-            {
-                while (!file.EndOfStream)
-                {
-                    var line = file.ReadLineAsync();
-
-                    yield return await line;
-                }
-            }
-        }
-
         /// <summary>
         /// CountLinesAsync() - method to count the number of lines within a log file
         /// </summary>
@@ -93,6 +73,24 @@ namespace LogAnalysisTool.ApacheLogs
                     {
                         yield return detection;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// ReadLinesAsync() - method to read in lines from a log file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static async IAsyncEnumerable<string> ReadLinesAsync(string fileName)
+        {
+            using (var file = new StreamReader(fileName))
+            {
+                while (!file.EndOfStream)
+                {
+                    var line = file.ReadLineAsync();
+
+                    yield return await line;
                 }
             }
         }

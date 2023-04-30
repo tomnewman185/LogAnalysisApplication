@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
 {
@@ -67,9 +64,9 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             }
         }
 
-        string SQLKeywords { get; set; }
-
         private Regex sqlInjectionKeywordRegularExpression { get; set; }
+
+        string SQLKeywords { get; set; }
 
         // Attack Description
         public override string Description => "SQL Injection - A test to detect if a user has injected SQL keywords into the URL to try and manipulate an internal database.";

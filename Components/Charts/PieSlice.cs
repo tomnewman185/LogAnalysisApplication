@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows;
 
 namespace LogAnalysisTool.Components.Charts
 {
     public class PieSlice : Shape
     {
-        private static readonly DependencyPropertyKey CenterAngleKey =
+        private static readonly DependencyPropertyKey _centerAngleKey =
             DependencyProperty.RegisterReadOnly("CenterAngle", typeof(double), typeof(PieSlice), new FrameworkPropertyMetadata());
-        public static readonly DependencyProperty CenterProperty =
+        public static readonly DependencyProperty _centerProperty =
             EllipseGeometry.CenterProperty.AddOwner(typeof(PieSlice), new FrameworkPropertyMetadata(OnGeometryPropertyChanged));
-        public static readonly DependencyProperty RadiusProperty =
+        public static readonly DependencyProperty _radiusProperty =
             DependencyProperty.Register("Radius", typeof(double), typeof(PieSlice), new FrameworkPropertyMetadata(OnGeometryPropertyChanged));
-        public static readonly DependencyProperty StartAngleProperty =
+        public static readonly DependencyProperty _startAngleProperty =
             DependencyProperty.Register("StartAngle", typeof(double), typeof(PieSlice), new FrameworkPropertyMetadata(OnGeometryPropertyChanged));
-        public static readonly DependencyProperty SweepAngleProperty =
+        public static readonly DependencyProperty _sweepAngleProperty =
             DependencyProperty.Register("SweepAngle", typeof(double), typeof(PieSlice), new FrameworkPropertyMetadata(OnGeometryPropertyChanged));
         private readonly ArcSegment _arcSegment = new();
         private readonly LineSegment _lineSegment = new();
@@ -68,17 +65,17 @@ namespace LogAnalysisTool.Components.Charts
 
         protected override Geometry DefiningGeometry => _pathGeometry;
 
-        public Point Center { set { SetValue(CenterProperty, value); } get { return (Point)GetValue(CenterProperty); } }
+        public Point Center { set { SetValue(_centerProperty, value); } get { return (Point)GetValue(_centerProperty); } }
 
-        public double CenterAngle { set { SetValue(CenterAngleKey, value); } get { return (double)GetValue(CenterAngleProperty); } }
+        public double CenterAngle { set { SetValue(_centerAngleKey, value); } get { return (double)GetValue(_centerAngleProperty); } }
 
-        public double Radius { set { SetValue(RadiusProperty, value); } get { return (double)GetValue(RadiusProperty); } }
+        public double Radius { set { SetValue(_radiusProperty, value); } get { return (double)GetValue(_radiusProperty); } }
 
-        public double StartAngle { set { SetValue(StartAngleProperty, value); } get { return (double)GetValue(StartAngleProperty); } }
+        public double StartAngle { set { SetValue(_startAngleProperty, value); } get { return (double)GetValue(_startAngleProperty); } }
 
-        public double SweepAngle { set { SetValue(SweepAngleProperty, value); } get { return (double)GetValue(SweepAngleProperty); } }
+        public double SweepAngle { set { SetValue(_sweepAngleProperty, value); } get { return (double)GetValue(_sweepAngleProperty); } }
 
-        public static readonly DependencyProperty CenterAngleProperty =
-            CenterAngleKey.DependencyProperty;
+        public static readonly DependencyProperty _centerAngleProperty =
+            _centerAngleKey.DependencyProperty;
     }
 }

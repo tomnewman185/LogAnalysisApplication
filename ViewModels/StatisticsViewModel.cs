@@ -87,6 +87,8 @@ namespace LogAnalysisTool.ViewModels
 
         public int MinVulnerabilityCount => Vulnerabilities.GetMinLogIssueInfo().minCount;
 
+        public ObservableCollection<IAnomalyDetectionItem> MLVulnerabilities { get; set; }
+
         public string MostCommonTestDetected => Vulnerabilities.GetMaxLogIssueInfo().testName;
 
         public double PercentageOfEntriesVulnerable => Math.Round(((double)TotalVulnerabilityCount / TotalEntryCount) * 100);
@@ -107,8 +109,6 @@ namespace LogAnalysisTool.ViewModels
         }
 
         public int TotalVulnerabilityCount => Vulnerabilities.Count + MLVulnerabilities.Count;
-
-        public ObservableCollection<IAnomalyDetectionItem> MLVulnerabilities { get; set; }
 
         public ObservableCollection<MaliciousLogEntryInfo> Vulnerabilities { get; set; }
 

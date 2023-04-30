@@ -78,7 +78,7 @@ namespace LogAnalysisTool
 
             static async Task<HashSet<string>> GetIPAddressesFromFile(string fileName)
             {
-                HashSet<string> ipAddresses = new HashSet<string>();
+                HashSet<string> ipAddresses = new();
 
                 using (var rdr = new StreamReader(fileName))
                 {

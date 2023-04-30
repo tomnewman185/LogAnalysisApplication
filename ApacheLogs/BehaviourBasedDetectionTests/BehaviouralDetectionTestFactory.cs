@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
 {
@@ -40,14 +38,6 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             return htmlKeywords;
         }
 
-        // SQL based keywords that need to be checked for signatures
-        public static string[] GetSQLKeywords()
-        {
-            string[] sqlKeywords = { "select", "union", "insert", "update", "delete", "replace", "truncate" };
-
-            return sqlKeywords;
-        }
-
         // JavaScript based keywords that need to be checked for signatures
         public static string[] GetJSEventHandlerKeywords()
         {
@@ -81,10 +71,17 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             return jsEventHandlerKeywords;
         }
 
+        // SQL based keywords that need to be checked for signatures
+        public static string[] GetSQLKeywords()
+        {
+            string[] sqlKeywords = { "select", "union", "insert", "update", "delete", "replace", "truncate" };
+
+            return sqlKeywords;
+        }
+
         // Runs all behavioural-based detection tests
         public static IEnumerable<IBehaviouralDetectionTest> RunBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses)
         {
-
             // HTML keyword test, running the test for each keyword contained within GetHTMLKeywords()
             foreach (string htmlKeyword in GetHTMLKeywords())
             {
@@ -94,13 +91,13 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             // SQL keyword test, running the test for each keyword contained within GetSQLKeywords()
             foreach (string sqlKeyword in GetSQLKeywords())
             {
-                yield return new SQLInjectionKeywordDetectionTest(torExitNodeIPAddresses,sqlKeyword);
+                yield return new SQLInjectionKeywordDetectionTest(torExitNodeIPAddresses, sqlKeyword);
             }
 
             // JS event handler keyword test, running the test for each keyword contained within GetJSEventHandlerKeywords()
             foreach (string jsEventHandlerKeyword in GetJSEventHandlerKeywords())
             {
-                yield return new JSEventHandlerDetectionTest(torExitNodeIPAddresses,jsEventHandlerKeyword);
+                yield return new JSEventHandlerDetectionTest(torExitNodeIPAddresses, jsEventHandlerKeyword);
             }
 
             // Insecure Direct Object Reference Test

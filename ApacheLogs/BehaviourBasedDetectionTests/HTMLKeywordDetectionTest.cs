@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
 {
@@ -66,12 +64,12 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             }
         }
 
-        public string HTMLKeyword { get; set; }
-
         private Regex htmlKeywordRegularExpression { get; set; }
 
         // Attack Description
         public override string Description => "Malicious HTML Element - A test to highlight potentially malicious HTML element injection which can be used to stage an attack, such as a XSS attack.";
+
+        public string HTMLKeyword { get; set; }
 
         // Attack Name
         public override string Name => $"{HTMLKeyword} - Potential Malicious HTML Element Detection";

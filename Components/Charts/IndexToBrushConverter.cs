@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -13,10 +10,13 @@ namespace LogAnalysisTool.Components.Charts
     {
         public Brush[] Brushes { get; set; }
 
+        #region IValueConverter Implementation
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (Brushes.Length == 0)
+            {
                 return null;
+            }
 
             return Brushes[(int)value % Brushes.Length];
         }
@@ -25,5 +25,6 @@ namespace LogAnalysisTool.Components.Charts
         {
             return null;
         }
+        #endregion
     }
 }

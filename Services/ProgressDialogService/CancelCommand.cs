@@ -7,30 +7,37 @@ namespace LogAnalysisTool.Services.ProgressDialogService
 {
     public class CancelCommand : ICommand
     {
-        readonly CancellationTokenSource cancellationTokenSource;
-
-        public event EventHandler CanExecuteChanged;
+        readonly CancellationTokenSource _cancellationTokenSource;
 
         public CancelCommand(CancellationTokenSource cancellationTokenSource)
         {
             if (cancellationTokenSource == null)
+            {
                 throw new ArgumentNullException("cancellationTokenSource");
-            this.cancellationTokenSource = cancellationTokenSource;
+            }
+
+            this._cancellationTokenSource = cancellationTokenSource;
         }
+
+        #region ICommand Implementation
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            return !cancellationTokenSource.IsCancellationRequested;
+            return !_cancellationTokenSource.IsCancellationRequested;
         }
 
         public void Execute(object parameter)
         {
-            cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Cancel();
 
             if (CanExecuteChanged != null)
+            {
                 CanExecuteChanged(this, EventArgs.Empty);
+            }
 
             CommandManager.InvalidateRequerySuggested();
         }
+        #endregion
     }
 }

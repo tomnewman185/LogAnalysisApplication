@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
 {
@@ -66,12 +64,12 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
             }
         }
 
-        public string JSEventHandlerKeyword { get; set; }
-
         private Regex javascriptEventHandlerKeywordRegularExpression { get; set; }
 
         // Attack Description
         public override string Description => "JavaScript Event Handler Injection - A test to detect if a user has injected JavaScript event handler keywords to potentially manipulate the server to run external resources.";
+
+        public string JSEventHandlerKeyword { get; set; }
 
         // Attack Name
         public override string Name => $"{JSEventHandlerKeyword} - Potential JavaScript Event Handler Element Detection";

@@ -13,8 +13,9 @@ namespace LogAnalysisTool.Services.ProgressDialogService
         private int _percentageIssues;
         private int _percentageNonIssues;
         private int _remainingPercentageDone;
+        private bool _showAnomalyProgressBar;
         private string _title;
-        private CancellationTokenRegistration _tokenRegistration;
+        private readonly CancellationTokenRegistration _tokenRegistration;
 
         public ProgressDialogWindowViewModel(string title, CancellationToken cancellationToken, CancelCommand cancelCommand)
         {
@@ -39,23 +40,6 @@ namespace LogAnalysisTool.Services.ProgressDialogService
         public void Close()
         {
             CurrentWindowService.Close();
-        }
-
-        private bool _showAnomalyProgressBar;
-
-        public bool ShowAnomalyProgressBar
-        {
-            get => _showAnomalyProgressBar;
-            set
-            {
-                if (_showAnomalyProgressBar == value)
-                {
-                    return;
-                }
-
-                _showAnomalyProgressBar = value;
-                RaisePropertyChanged(nameof(ShowAnomalyProgressBar));
-            }
         }
 
         public ICurrentWindowService CurrentWindowService => GetService<ICurrentWindowService>();
@@ -152,6 +136,21 @@ namespace LogAnalysisTool.Services.ProgressDialogService
 
                 _remainingPercentageDone = value;
                 RaisePropertyChanged(nameof(RemainingPercentageDone));
+            }
+        }
+
+        public bool ShowAnomalyProgressBar
+        {
+            get { return _showAnomalyProgressBar; }
+            set
+            {
+                if (_showAnomalyProgressBar == value)
+                {
+                    return;
+                }
+
+                _showAnomalyProgressBar = value;
+                RaisePropertyChanged(nameof(ShowAnomalyProgressBar));
             }
         }
 

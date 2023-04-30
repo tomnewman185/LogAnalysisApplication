@@ -45,8 +45,10 @@ namespace LogAnalysisTool
 
         public ITest TestDetected { get; }
 
+        #region IDetectionItem Implementation
         int IDetectionItem.LineNumber => LineNumber;
 
         string IDetectionItem.Request => Match.Value;
+        #endregion
     }
 }

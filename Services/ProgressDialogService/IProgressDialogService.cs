@@ -1,11 +1,7 @@
-﻿using DevExpress.Mvvm;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace LogAnalysisTool.Services.ProgressDialogService
 {

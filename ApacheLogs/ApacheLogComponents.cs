@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests;
 
 namespace LogAnalysisTool.ApacheLogs
@@ -15,10 +12,9 @@ namespace LogAnalysisTool.ApacheLogs
         {
         }
 
+        #region ILogTypeInfo Implementation
         //Regular expression statement to break up each log entry into its components
-        public string LogComponentsRegularExpression =>
-
-            @"^
+        public string LogComponentsRegularExpression => @"^
             \s*                                                       # Match any whitespace chars
             (?<StartQuote>""?)                                        # Match 0 or 1 quote as group <StartQuote>
             (?<1>\S+)                                                 # Match 1 or more non-whitespace chars as group <1t>
@@ -53,19 +49,31 @@ namespace LogAnalysisTool.ApacheLogs
         // Name of log type
         public string Name => "Apache Log Type";
 
-        public IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses) => BehaviouralDetectionTestFactory.RunBehaviouralDetectionTests(torExitNodeIPAddresses);
+        public IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses)
+        {
+            return BehaviouralDetectionTestFactory.RunBehaviouralDetectionTests(torExitNodeIPAddresses);
+        }
+        #endregion
 
         // Defines the different component groups that are present within each log entry of an Apache access log file
         internal class RegexComponentGroups
         {
-            public static string RemoteHost => "1";
-            public static string RFC931 => "2";
             public static string AuthUser => "3";
-            public static string Date => "4";
-            public static string Request => "5";
-            public static string Status => "6";
+
             public static string Bytes => "7";
+
+            public static string Date => "4";
+
             public static string Referer => "8";
+
+            public static string RemoteHost => "1";
+
+            public static string Request => "5";
+
+            public static string RFC931 => "2";
+
+            public static string Status => "6";
+
             public static string UserAgent => "9";
         }
     }
