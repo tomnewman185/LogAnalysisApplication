@@ -80,7 +80,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests
         }
 
         // Runs all behavioural-based detection tests
-        public static IEnumerable<IBehaviouralDetectionTest> RunBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses)
+        public static IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses)
         {
             // HTML keyword test, running the test for each keyword contained within GetHTMLKeywords()
             foreach (string htmlKeyword in GetHTMLKeywords())

@@ -51,7 +51,7 @@ namespace LogAnalysisTool.ApacheLogs
 
         public IEnumerable<IBehaviouralDetectionTest> GetBehaviouralDetectionTests(HashSet<string> torExitNodeIPAddresses)
         {
-            return BehaviouralDetectionTestFactory.RunBehaviouralDetectionTests(torExitNodeIPAddresses);
+            return BehaviouralDetectionTestFactory.GetBehaviouralDetectionTests(torExitNodeIPAddresses);
         }
         #endregion
 
