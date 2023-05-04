@@ -16,7 +16,7 @@ namespace LogAnalysisTool.Services.ProgressDialogService
                 throw new ArgumentNullException("cancellationTokenSource");
             }
 
-            this._cancellationTokenSource = cancellationTokenSource;
+            _cancellationTokenSource = cancellationTokenSource;
         }
 
         #region ICommand Implementation

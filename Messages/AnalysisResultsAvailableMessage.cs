@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LogAnalysisTool.ApacheLogs.AnomalyBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
 
 namespace LogAnalysisTool.Messages
 {

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:local="clr-namespace:LogAnalysisTool.Views"
-             xmlns:loganalysistool="clr-namespace:LogAnalysisTool"
+             xmlns:loganalysistool="clr-namespace:LogAnalysisTool.ServerTypes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:progressdialogservice="clr-namespace:LogAnalysisTool.Services.ProgressDialogService"
              mc:Ignorable="d"

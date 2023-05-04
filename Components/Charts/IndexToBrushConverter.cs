@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 
 namespace LogAnalysisTool.Components.Charts
 {
+    /// <summary>
+    /// IndexToBrushConverter.cs by Charles Petzold, June 2009 https://learn.microsoft.com/en-us/archive/msdn-
+    /// magazine/2009/september/charting-with-datatemplates
+    /// </summary>
     public class IndexToBrushConverter : IValueConverter
     {
         public Brush[] Brushes { get; set; }

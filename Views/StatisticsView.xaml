@@ -98,7 +98,7 @@
                                    FontSize="32"
                                    FontWeight="Bold"
                                    Foreground="{StaticResource appForegroundColour}"
-                                   Text="{Binding TotalEntryCount}" />
+                                   Text="{Binding TotalEntryCount, StringFormat='{}{0:N0}'}" />
                     </Grid>
                 </GroupBox>
 
@@ -126,7 +126,7 @@
                                    FontSize="32"
                                    FontWeight="Bold"
                                    Foreground="{StaticResource appForegroundColour}"
-                                   Text="{Binding TotalVulnerabilityCount}" />
+                                   Text="{Binding TotalVulnerabilityCount, StringFormat='{}{0:N0}'}" />
                     </Grid>
                 </GroupBox>
 

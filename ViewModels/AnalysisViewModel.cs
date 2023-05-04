@@ -8,13 +8,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DevExpress.Mvvm;
-using LogAnalysisTool.ApacheLogs;
-using LogAnalysisTool.ApacheLogs.AnomalyBasedDetectionTests;
-using LogAnalysisTool.ApacheLogs.AnomalyBasedDetectionTests.MachineLearning;
-using LogAnalysisTool.ApacheLogs.AnomalyBasedDetectionTests.MachineLearning.Training;
-using LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests.MachineLearning;
+using LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests.MachineLearning.Apache.Training;
+using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 using LogAnalysisTool.Messages;
+using LogAnalysisTool.ServerTypes;
+using LogAnalysisTool.ServerTypes.Apache;
 using LogAnalysisTool.Services.ProgressDialogService;
+using LogAnalysisTool.Tor;
 using Microsoft.ML;
 
 namespace LogAnalysisTool.ViewModels

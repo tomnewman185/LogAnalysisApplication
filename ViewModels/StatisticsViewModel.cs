@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using DevExpress.Mvvm;
-using LogAnalysisTool.ApacheLogs.AnomalyBasedDetectionTests;
 using LogAnalysisTool.Components.Charts;
+using LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests;
+using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
 using LogAnalysisTool.Messages;
 using LogAnalysisTool.StatisticReporting;
 

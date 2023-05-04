@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Data;
 
 namespace LogAnalysisTool.Components.Charts
 {
+    /// <summary>
+    /// PercentageToAngleConverter.cs by Charles Petzold, June 2009 https://learn.microsoft.com/en-us/archive/msdn-
+    /// magazine/2009/september/charting-with-datatemplates
+    /// </summary>
     public class PercentageToAngleConverter : IValueConverter
     {
         #region IValueConverter Implementation
