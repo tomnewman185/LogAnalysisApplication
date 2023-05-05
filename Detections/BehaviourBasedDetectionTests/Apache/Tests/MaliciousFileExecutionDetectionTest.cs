@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 using LogAnalysisTool.ServerTypes.Apache;
 
-namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests.Apache.Tests
 {
     // Malicious File Execution Detection Test
     class MaliciousFileExecutionDetectionTest : BehaviouralDetectionTestBase

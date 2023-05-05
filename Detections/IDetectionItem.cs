@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests
+namespace LogAnalysisTool.Detections
 {
     /// <summary>
     /// IDetectionItem - Implemented on types that represent a detected threat, whether that is bahavioural or anomaly

@@ -5,8 +5,8 @@ using System.Windows.Data;
 namespace LogAnalysisTool.Components.Charts
 {
     /// <summary>
-    /// PercentageToAngleConverter.cs by Charles Petzold, June 2009 https://learn.microsoft.com/en-us/archive/msdn-
-    /// magazine/2009/september/charting-with-datatemplates
+    /// PercentageToAngleConverter.cs by Charles Petzold, June 2009 
+    /// https://learn.microsoft.com/en-us/archive/msdn-magazine/2009/september/charting-with-datatemplates
     /// </summary>
     public class PercentageToAngleConverter : IValueConverter
     {

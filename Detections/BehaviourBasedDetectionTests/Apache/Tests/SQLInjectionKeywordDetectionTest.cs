@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 using LogAnalysisTool.ServerTypes.Apache;
 
-namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests.Apache.Tests
 {
-    // HTML Keyword Detection Test
-    internal class HTMLKeywordDetectionTest : BehaviouralDetectionTestBase
+    // SQL Injection Keyword Detection Test
+    internal class SQLInjectionKeywordDetectionTest : BehaviouralDetectionTestBase
     {
-        public HTMLKeywordDetectionTest(HashSet<string> torExitNodeIPAddresses, string htmlKeyword) : base(torExitNodeIPAddresses)
+        public SQLInjectionKeywordDetectionTest(HashSet<string> torExitNodeIPAddresses, string sqlKeywords) : base(torExitNodeIPAddresses)
         {
-            // Pull current HTML keyword from string list defined in BehaviouralDetectionTestFactory
-            HTMLKeyword = htmlKeyword;
+            // Pull current SQL keyword from string list defined in BehaviouralDetectionTestFactory
+            SQLKeywords = sqlKeywords;
 
-            // Build and set the regex pattern for the current HTML keyword
-            SetRegexPattern(BuildRegexPattern(HTMLKeyword));
+            // Build and set the regex pattern for the current SQL keyword
+            SetRegexPattern(BuildRegexPattern(sqlKeywords));
         }
 
         // Builds the regex pattern for the keyword currently being passed in from the list contained in BehaviouralDetectionTestFactory
-        private static string BuildRegexPattern(string htmlKeyword)
+        private static string BuildRegexPattern(string sqlKeywords)
         {
             string regexPattern = string.Empty;
 
-            // Splits the current HTML keyword into its individual characters
-            var chars = $"<{htmlKeyword}".ToCharArray();
+            // Splits the current SQL keyword into its individual characters
+            var chars = $"{sqlKeywords}".ToCharArray();
 
             // For each character of the keyword, add the letter and its hex equivalent to the regular expression pattern
             foreach (char c in chars)
@@ -40,10 +38,10 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
         // Sets the regex pattern for the current keyword
         private void SetRegexPattern(string regexPattern)
         {
-            htmlKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            SqlInjectionKeywordRegularExpression = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
-        // Carry out tests to detect signature of the current HTML keyword
+        // Carry out tests to detect signature of the current SQL keyword
         public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             // Defining the request group, which is the group that needs to be searched for the attack
@@ -51,7 +49,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
             var request = group.Value;
 
             // For each signature detection, return a new malicious log match
-            foreach (Match m in htmlKeywordRegularExpression.Matches(request))
+            foreach (Match m in SqlInjectionKeywordRegularExpression.Matches(request))
             {
                 if (m.Success)
                 {
@@ -67,14 +65,14 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
             }
         }
 
-        private Regex htmlKeywordRegularExpression { get; set; }
+        private Regex SqlInjectionKeywordRegularExpression { get; set; }
+
+        string SQLKeywords { get; set; }
 
         // Attack Description
-        public override string Description => "Malicious HTML Element - A test to highlight potentially malicious HTML element injection which can be used to stage an attack, such as a XSS attack.";
-
-        public string HTMLKeyword { get; set; }
+        public override string Description => "SQL Injection - A test to detect if a user has injected SQL keywords into the URL to try and manipulate an internal database.";
 
         // Attack Name
-        public override string Name => $"{HTMLKeyword} - Potential Malicious HTML Element Detection";
+        public override string Name => $"{SQLKeywords} - Potential SQL Injection Detection";
     }
 }

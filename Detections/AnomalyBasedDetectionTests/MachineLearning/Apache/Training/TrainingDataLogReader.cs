@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using LogAnalysisTool.ServerTypes.Apache;
 
-namespace LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests.MachineLearning.Apache.Training
+namespace LogAnalysisTool.Detections.AnomalyBasedDetectionTests.MachineLearning.Apache.Training
 {
     internal class TrainingDataLogReader
     {

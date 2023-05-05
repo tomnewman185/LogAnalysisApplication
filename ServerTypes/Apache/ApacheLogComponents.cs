@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
+using LogAnalysisTool.Detections.BehaviourBasedDetectionTests;
+using LogAnalysisTool.Detections.BehaviourBasedDetectionTests.Apache.Tests;
 
 namespace LogAnalysisTool.ServerTypes.Apache
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 
-namespace LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests
 {
     /// <summary>
     /// MaliciousLogEntryInfo - Class to define information that we want to collect regarding a malicious log entry

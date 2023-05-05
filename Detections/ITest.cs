@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests
+namespace LogAnalysisTool.Detections
 {
     /// <summary>
     /// ITest - Interface for a test

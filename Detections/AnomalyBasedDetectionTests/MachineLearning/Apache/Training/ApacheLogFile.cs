@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests.MachineLearning.Apache.Training
+namespace LogAnalysisTool.Detections.AnomalyBasedDetectionTests.MachineLearning.Apache.Training
 {
     // Class defining the components of an Apache log file needed for the machine learning portion of the system
     public class ApacheLogFile : IAnomalyDetectionItem

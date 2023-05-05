@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LogAnalysisTool.Detections.BehaviourBasedDetectionTests;
 
-namespace LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache
+namespace LogAnalysisTool.Detections
 {
     /// <summary>
     /// LogReader - Logic for all tasks related to reading in data from a log file

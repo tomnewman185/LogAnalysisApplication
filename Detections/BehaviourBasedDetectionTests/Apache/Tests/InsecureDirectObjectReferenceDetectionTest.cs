@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 using LogAnalysisTool.ServerTypes.Apache;
 
-namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests.Apache.Tests
 {
-    // Advanced Injection Detection Test
-    internal class AdvancedInjectionDetectionTest : BehaviouralDetectionTestBase
+    // Insecure Direct Object Reference Detection Test
+    internal class InsecureDirectObjectReferenceDetectionTest : BehaviouralDetectionTestBase
     {
-        public AdvancedInjectionDetectionTest(HashSet<string> torExitNodeIPAddresses) : base(torExitNodeIPAddresses)
+        public InsecureDirectObjectReferenceDetectionTest(HashSet<string> torExitNodeIPAddresses) : base(torExitNodeIPAddresses)
         {
             // Definition of regular expression for test
-            AdvancedInjectionRegularExpression = new Regex(@"(%3D|=)[^\n]*((%27|')|(--)|(%3B|;))", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            InsecureDirectObjectReferenceRegularExpression = new Regex(@"(\.|(%|%25)2E)(\.|(%|%25)2E)(\/|(%|%25)2F|\\|(%|%25)5C)",
+                                                                       RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
-        // Carry out tests to detect signature of an Advanced Injection attack
+        // Carry out tests to detect signature of an Insecure Direct Object Reference attack
         public override IEnumerable<MaliciousLogEntryInfo> ConductTest(Match match, string line, int lineNumber)
         {
             // Defining the request group, which is the group that needs to be searched for the attack
@@ -25,7 +24,7 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
             var request = group.Value;
 
             // For each signature detection, return a new malicious log match
-            foreach (Match m in AdvancedInjectionRegularExpression.Matches(request))
+            foreach (Match m in InsecureDirectObjectReferenceRegularExpression.Matches(request))
             {
                 if (m.Success)
                 {
@@ -41,12 +40,12 @@ namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
             }
         }
 
-        private Regex AdvancedInjectionRegularExpression { get; set; }
+        private Regex InsecureDirectObjectReferenceRegularExpression { get; set; }
 
         // Attack Description
-        public override string Description => "Advanced Injection - A test to detect a potential advanced injection attack based on the use of specific symbols - (=) (') (;).";
+        public override string Description => "Insecure Direct Object Reference - A test to highlight a potential exposure of internal server objects or files which a user can manipulate to traverse internal files and directories.";
 
         // Attack Name
-        public override string Name => "Potential Advanced Injection Attack Detection (=) (') (;)";
+        public override string Name => "Potential Insecure Direct Object Reference Attack Detected";
     }
 }

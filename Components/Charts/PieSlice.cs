@@ -7,8 +7,7 @@ using System.Windows.Shapes;
 namespace LogAnalysisTool.Components.Charts
 {
     /// <summary>
-    /// PieSlice.cs by Charles Petzold, June 2009 https://learn.microsoft.com/en-us/archive/msdn-
-    /// magazine/2009/september/charting-with-datatemplates
+    /// PieSlice.cs by Charles Petzold, June 2009 https://learn.microsoft.com/en-us/archive/msdn-magazine/2009/september/charting-with-datatemplates
     /// </summary>
     public class PieSlice : Shape
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests
 {
     /// <summary>
     /// BehaviouralDetectionTestBase() - Base class for a behavioural detection test which has the properties contained

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LogAnalysisTool.LogsFiles.AnomalyBasedDetectionTests.MachineLearning
+namespace LogAnalysisTool.Detections.AnomalyBasedDetectionTests.MachineLearning
 {
     public class MachineLearningDataLogReader<T>
     {

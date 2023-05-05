@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LogAnalysisTool.LogsFiles.BehaviourBasedDetectionTests.Apache;
 
-namespace LogAnalysisTool.ApacheLogs.BehaviourBasedDetectionTests.Apache.Tests
+namespace LogAnalysisTool.Detections.BehaviourBasedDetectionTests.Apache.Tests
 {
     // Behavioural Detection Test Factory Class
     internal class BehaviouralDetectionTestFactory
